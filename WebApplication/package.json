@@ -1,0 +1,46 @@
+{
+  "name": "webapplication",
+  "version": "1.0.0",
+  "description": "A Medical Web Application client",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm run build",
+    "build": "webpack -p && copy src\\index.html dist\\index.html && webpack-dev-server",
+    "build-mac": "webpack -p && cp src/index.html dist/index.html && webpack-dev-server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "React",
+    "JavaScript",
+    "ES-6",
+    "Redux",
+    "ReactHooks"
+  ],
+  "author": "Blaz Demsar",
+  "license": "MIT",
+  "dependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.10.4",
+    "middleware": "^1.0.0",
+    "prop-types": "^15.7.2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-redux": "^7.2.1",
+    "react-router-dom": "^5.2.0",
+    "redux": "^4.0.5",
+    "redux-promise-middleware": "^6.1.2",
+    "redux-thunk": "^2.3.0",
+    "serialize-javascript": "^4.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.11.1",
+    "@babel/preset-env": "^7.11.0",
+    "@babel/preset-react": "^7.10.4",
+    "babel-loader": "^8.1.0",
+    "css-loader": "^4.2.1",
+    "style-loader": "^1.2.1",
+    "uglifyjs-webpack-plugin": "^2.2.0",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
+  }
+}
