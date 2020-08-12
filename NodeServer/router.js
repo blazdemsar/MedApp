@@ -4,20 +4,6 @@ PatientModel = require("./DataModel/PatientModel"),
 DoctorModel = require("./DataModel/DoctorModel"),
 AdminModel = require("./DataModel/AdminModel");
 
-// Find a patient
-routes.get("/api/getPatient", (req, res) => {
-    
-    console.log(req.body);
-    
-    PatientModel.findOne({name : req.body.name}, (err, patientObject) => {
-        if (err != null) {
-            res.send({"Err:" : err});
-        } else if (patientObject) {
-            res.json(patientObject);
-        }
-    })
-})
-
 // Create new patients
 routes.post("/api/createPatient", (req, res) => {
     
@@ -32,14 +18,14 @@ routes.post("/api/createPatient", (req, res) => {
 })
 
 // Login as admin
-routes.post("/api/signInAdmin", (req, res) => {
+routes.post("/api/loginAdmin", (req, res) => {
     
     console.log(req.body);
     
     AdminModel.findOne({userName : req.body.userName} && {password : req.body.password}, (err, adminObject) => {
         if (err != null) {
-            console.log("Error : ", err);
-            res.send({"Err:" : err});
+            console.log("Error Logging In The Admin: ", err);
+            res.send({"Error Logging In The Admin: " : err});
         } else if (adminObject) {
             res.json(adminObject);
         }
@@ -47,7 +33,7 @@ routes.post("/api/signInAdmin", (req, res) => {
 })
 
 // Create admin account
-routes.post("/api/createAdmin", (req, res) => {
+routes.post("/api/registerAdmin", (req, res) => {
     let adminObject = new AdminModel(req.body);
 
     adminObject.save((err, data, next)=>{        
@@ -58,18 +44,37 @@ routes.post("/api/createAdmin", (req, res) => {
     });
 })
 
-// Find a doctor
-routes.post("/api/getDoctor", (req, res) => {
+// Find doctors
+routes.get("/api/getDoctors", (req, res) => {
     
     console.log(req.body);
     
-    DoctorModel.findOne({name : req.body.name} && {lastName : req.body.lastName}, (err, doctorObject) => {
-        if (err != null) {
-            console.log("Error : ", err);
-            res.send({"Err:" : err});
-        } else if (doctorObject) {
-            res.json(doctorObject);
-        }
+    DoctorModel.find((err, data, next) =>{
+        console.log("Data :", err);
+
+        err ? 
+        res.send({"erro": err}) 
+        :
+        res.send(
+            data
+        )
+    })
+})
+
+// Find patients
+routes.get("/api/getPatients", (req, res) => {
+    
+    console.log(req.body);
+    
+    PatientModel.find((err, data, next) =>{
+        console.log("Data :", err);
+
+        err ? 
+        res.send({"erro": err}) 
+        :
+        res.send(
+            data
+        )
     })
 })
 
@@ -79,7 +84,7 @@ routes.post("/api/createDoctor", (req, res) => {
 
     doctorObject.save((err, data, next)=>{        
         if (err) {
-            res.send("Error Creating an Admin Account : "+ err);
+            res.send("Error Saving A Doctor : "+ err);
         }      
         res.json(data);
     });

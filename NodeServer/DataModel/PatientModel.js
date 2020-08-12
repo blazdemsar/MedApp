@@ -7,11 +7,12 @@ let PatientModel = new schemaObject (
     {
         name : {type:String, required:true},
         lastName : {type:String, required:true},
+        dob : {type:Date, required:true},
         address : {type:String, required:true},
         disease : {type:String, required:true},
     },
     {
-        versionKey : true
+        versionKey : false
     }
 );
 

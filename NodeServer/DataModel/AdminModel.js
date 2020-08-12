@@ -9,7 +9,7 @@ let AdminModel = new schemaObject (
         password : {type:String, required:true},
     },
     {
-        versionKey : true
+        versionKey : false
     }
 );
 

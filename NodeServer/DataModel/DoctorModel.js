@@ -12,7 +12,7 @@ let DoctorModel = new schemaObject (
         fee : {type:Number, required:true}
     },
     {
-        versionKey : true
+        versionKey : false
     }
 );
 
