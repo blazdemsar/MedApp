@@ -5,6 +5,7 @@ export default class Doctor extends Component{
     constructor(props, context){
         super(props, context);
         this.state = {
+            doctorId : "",
             name : "", //props.doctor.name,
             lastName : "", //props.doctor.lastName,
             qualification : "", //props.doctor.qualification,
@@ -18,6 +19,7 @@ export default class Doctor extends Component{
     componentWillReceiveProps(nextProps){
         console.log("next props", nextProps);
         this.setState({
+            doctorId : nextProps.doctor.doctorId,
             name : nextProps.doctor.name,
             lastName : nextProps.doctor.lastName,
             qualification : nextProps.doctor.qualification,
@@ -34,7 +36,11 @@ export default class Doctor extends Component{
         let typedValue = target.value;//reading the value with the help of target (html control)
                                             //which raised this event
 
-        if (classlist.indexOf("name")>=0) {
+        if (classlist.indexOf("doctorId")>=0) {
+            this.setState({
+                doctorId:typedValue
+            })
+        } else if (classlist.indexOf("name")>=0) {
             this.setState({
                 name:typedValue
             })
@@ -67,6 +73,12 @@ export default class Doctor extends Component{
             <div className={"container"}>
                 <div className="col-lg-12">
                     <div className="col-md-12">
+                        <div className="form-group">
+                            <b>Doctor ID</b>
+                            <br/>
+                            <input type="number" className="form-control doctorId" value={this.state.doctorId} 
+                            placeholder="Doctor ID" onChange={this.onChangeText} />
+                        </div>
                         <div className="form-group">
                             <b>First Name</b>
                             <br/>

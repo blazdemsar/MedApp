@@ -2,13 +2,11 @@ import * as ActionTypes from "./ActionTypes"; //alias import
 
 const INITIAL_STATE = {
     record : {
-        patientName : "",
-        patientLastName : "",
-        doctorName : "",
-        doctorLastName : "",
+        recordId : 0,
+        patient : {},
+        doctor : {},
         admission : "",
-        diagnosis : "",
-        fee : ""
+        diagnosis : ""
     },
     //loading : false,
     records : []

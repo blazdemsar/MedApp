@@ -14,7 +14,7 @@ export default function Management() {
                 <h2>Create A New Patient</h2>
                 <PatientComponent/>
                 <br/>
-                <h2>Create A New Record</h2>
+                <h2>Create A New Medical Record</h2>
                 <RecordsComponent/>
                 <br/>
                 <label></label>

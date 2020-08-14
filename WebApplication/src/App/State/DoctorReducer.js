@@ -2,6 +2,7 @@ import * as ActionTypes from "./ActionTypes"; //alias import
 
 const INITIAL_STATE = {
     doctor : {
+        doctorId : 0,
         name : "",
         lastName : "",
         qualification : "",

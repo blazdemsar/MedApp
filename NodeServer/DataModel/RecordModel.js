@@ -5,13 +5,11 @@ mongooseObject.connect("mongodb://127.0.0.1:27017/medapp");
 
 let RecordModel = new schemaObject (
     {
-        patientName : {type:String, required:true},
-        patientLastName : {type:String, required:true},
-        doctorName : {type:String, required:true},
-        doctorLastName : {type:String, required:true},
+        recordId : {type:Number, required:true},
+        patient : {type:Object, required:true},
+        doctor : {type:Object, required:true},
         admission : {type:String, required:true},
         diagnosis : {type:String, required:true},
-        fee : {type:Number, required:true}
     },
     {
         versionKey : false

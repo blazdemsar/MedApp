@@ -1,11 +1,13 @@
 import {connect} from "react-redux"; 
 import RecordsComponent from "../../Component/Records/RecordsComponent";
 
-import {createRecord} from "../../../State/Actions"; 
+import {createRecord, getPatients, getDoctors} from "../../../State/Actions"; 
 
 let mapStateToProps = (store)=> { //store can be named state as well
     return {
-        record: store.record.record
+        record: store.record.record,
+        doctors: store.doctor.doctors,
+        patients: store.patient.patients
     }
 }
 
@@ -14,6 +16,12 @@ let mapDispatchToProps = (dispatch)=>{
     return {
         createRecord:(recordObject) => {
             dispatch(createRecord(recordObject));
+        },
+        getDoctors:() =>{
+            dispatch(getDoctors())
+        },
+        getPatients:() =>{
+            dispatch(getPatients())
         }
     }    
 }

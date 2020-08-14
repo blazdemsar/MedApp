@@ -5,26 +5,28 @@ export default class Record extends Component{
     constructor(props, context){
         super(props, context);
         this.state = {
-            patientName : "",
-            patientLastName : "",
-            doctorName : "",
-            doctorLastName : "",
-            addmission : "",
-            diagnosis : "",
-            fee : ""
+            recordId : "",
+            patient : {},
+            doctor : {},
+            admission : "",
+            diagnosis : ""
         }
+    }
+    
+    componentDidMount(){
+        console.log("Hello");
+        this.props.getPatients();
+        this.props.getDoctors();
     }
 
     componentWillReceiveProps(nextProps){
         console.log("next props", nextProps);
         this.setState({
-            patientName : nextProps.record.patientName,
-            patientLastName : nextProps.record.patientLastName,
-            doctorName : nextProps.record.doctorName,
-            doctorLastName : nextProps.record.doctorLastName,
+            recordId : nextProps.record.recordId,
+            patient : nextProps.record.patient,
+            doctor : nextProps.record.doctor,
             admission : nextProps.record.admission,
             diagnosis : nextProps.record.diagnosis,
-            fee : nextProps.record.fee
         })
     }
 
@@ -36,33 +38,27 @@ export default class Record extends Component{
         let typedValue = target.value;//reading the value with the help of target (html control)
                                             //which raised this event
 
-        if (classlist.indexOf("patientName")>=0) {
+        if (classlist.indexOf("recordId")>=0) {
             this.setState({
-                patientName:typedValue
+                recordId: typedValue
             })
-        } else if(classlist.indexOf("patientLastName")>=0) {
+        } else if (classlist.indexOf("patient")>=0) { //!= "Select"
+            let newPatient = JSON.parse(typedValue);
             this.setState({
-                patientLastName:typedValue
-            }) 
-        } else if(classlist.indexOf("doctorName")>=0){
-            this.setState({
-                doctorName: target.value
+                patient: newPatient
             })
-        } else if (classlist.indexOf("doctorLastName")>=0) {
+        } else if(classlist.indexOf("doctor")>=0){
+            let newDoctor = JSON.parse(typedValue);
             this.setState({
-                doctorLastName: target.value
-            })      
+                doctor: newDoctor
+            })
         } else if (classlist.indexOf("admission")>=0) {
             this.setState({
-                admission: target.value
+                admission: typedValue
             })    
         } else if (classlist.indexOf("diagnosis")>=0) {
             this.setState({
-                diagnosis: target.value
-            })    
-        }else if (classlist.indexOf("fee")>=0) {
-            this.setState({
-                fee: target.value
+                diagnosis: typedValue
             })    
         }
     }
@@ -73,39 +69,59 @@ export default class Record extends Component{
     }
 
     render(){
+
+        let patients = this.props.patients;
+        let doctors = this.props.doctors;
+
+        console.log(patients);
+        console.log(doctors);
+
+        let doctorsList = doctors.length > 0 && doctors.map((doctor, i) => {
+            return (<option className="option" value={JSON.stringify(doctor)}>{doctor.doctorId} : {doctor.name} {doctor.lastName}</option>)
+        }, this)
+
+        console.log(doctorsList);
+
+        let patientsList = patients.length > 0 && patients.map((patient, i) => {
+            return (<option className="option" value={JSON.stringify(patient)}>{patient.patientId} : {patient.name} {patient.lastName}</option>)
+        }, this)
+
+        console.log(doctorsList);
+
         return(
             <div className={"container"}>
                 <div className="col-lg-12">
                     <div className="col-md-12">
                         <div className="form-group">
-                            <b>Patient's First Name</b>
+                            <b>Record ID</b>
                             <br/>
-                            <input type="text" className="form-control patientName" value={this.state.patientName} 
-                            placeholder="Patient's First Name" onChange={this.onChangeText} />
+                            <input type="number" className="form-control recordId" value={this.state.recordId} 
+                            placeholder="Record ID" onChange={this.onChangeText} />
                         </div>
                         <div className="form-group">
-                            <b>Patient's Last Name</b>
+                            <b>Select A Patient</b>
                             <br/>
-                            <input type="text" className="form-control patientLastName" value={this.state.patientLastName} 
-                                placeholder="Patient's Last Name" onChange={this.onChangeText} />
+                            <select type="text" className="form-control patient" placeholder="Select A Patient" onChange={this.onChangeText} >
+                                <option className="option" value="Select">Select A Patient</option>
+                                {patientsList}
+                            </select>
                         </div>
                         <div className="form-group">
-                            <b>Doctor's First Name</b>
+                            <b>Select A Doctor</b>
                             <br/>
-                            <input type="text" className="form-control doctorName" value={this.state.doctorName} 
-                            placeholder="Doctor's First Name" onChange={this.onChangeText} />
-                        </div>
-                        <div className="form-group">
-                            <b>Doctor's Last Name</b>
-                            <br/>
-                            <input type="text" className="form-control doctorLastName" value={this.state.doctorLastName} 
-                            placeholder="Doctor's Last Name" onChange={this.onChangeText} />
+                            <select type="text" className="form-control doctor" placeholder="Select A Patient" onChange={this.onChangeText} >
+                                <option className="option" value="Select">Select A Doctor</option>
+                                {doctorsList}
+                            </select>
                         </div>
                         <div className="form-group">
                             <b>Admission</b>
                             <br/>
-                            <input type="text" className="form-control admission" value={this.state.admission} 
-                            placeholder="Admission" onChange={this.onChangeText} />
+                            <select type="text" className="form-control admission" placeholder="Admission" onChange={this.onChangeText} >
+                                <option className="option" value="">Select A Value</option>
+                                <option className="option" value="Yes">Yes</option>
+                                <option className="option" value="No">No</option>
+                            </select>
                         </div>
                         <div className="form-group">
                             <b>Diagnosis</b>
@@ -113,14 +129,6 @@ export default class Record extends Component{
                             <textarea type="text" className="form-control diagnosis" value={this.state.diagnosis} 
                             placeholder="Diagnosis" onChange={this.onChangeText} />
                         </div>
-                        <div className="form-group">
-                            <b>Fee</b>
-                            <br/>
-                            <input type="number" className="form-control fee" value={this.state.fee} 
-                            placeholder="Fee" onChange={this.onChangeText} />
-                        </div>
-
-                        {this.state._id}
                         <hr/>
                         <input type="button" className="btn btn-danger" value={"Create"} onClick={this.CreateRecord}/>
                         <br/>

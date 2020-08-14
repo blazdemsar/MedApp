@@ -18,9 +18,9 @@ let Header = (props) => {
                             <NavLink to="/home" className="btn btn-danger" activeClassName="success" >Home </NavLink> 
                             <NavLink to="/patients" className="btn btn-danger" activeClassName="success" >Patients </NavLink>
                             <NavLink to="/doctors" className="btn btn-danger" activeClassName="success" >Doctors </NavLink>
-                            <NavLink to="/records" className="btn btn-danger" activeClassName="success" >Records </NavLink>
+                            <NavLink to="/records" className="btn btn-danger" activeClassName="success" >Medical Records </NavLink>
                             <NavLink to="/management" className="btn btn-danger" activeClassName="success" >Management Portal </NavLink>  
-                            <NavLink to="/about" className="btn btn-danger" activeClassName="success">About  </NavLink>
+                            <NavLink to="/about" className="btn btn-danger" activeClassName="success">About </NavLink>
                             {/* <input type="button" className="btn-lg btn-primary" value={"Logout"} onClick=""/> */}
                         </div>
                     </React.Fragment>

@@ -20,9 +20,11 @@ export default class DisplayPatientsDetailsComponent extends React.Component{
             <React.Fragment>
                 <ul className="list-group">
                     <li className="list-group-item list-group-item-action d-flex justify-content-between align-items-center" onClick={this.showHideDetails}>
-                        <label><b>{patient.name} {patient.lastName}</b></label>                      
+                        <label><b>ID : {patient.patientId}</b></label>                      
                         {this.state.showDetails ?
                         <ul>
+                            <li className="list-group-item list-group-item-danger">First Name : {patient.name}</li>
+                            <li className="list-group-item list-group-item-danger">Last Name : {patient.lastName}</li>
                             <li className="list-group-item list-group-item-danger">Date of Birth : {patient.dob}</li>
                             <li className="list-group-item list-group-item-danger">Address : {patient.address}</li>
                             <li className="list-group-item list-group-item-danger">Disease : {patient.disease}</li>

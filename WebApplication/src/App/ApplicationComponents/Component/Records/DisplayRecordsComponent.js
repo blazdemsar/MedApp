@@ -15,7 +15,7 @@ export default class DisplayRecords extends Component{
     render(){
 
         let records = this.props.records
-        console.log("Doctors: ", records)
+        console.log("Records: ", records)
         return(
             <div className={"container"}>
                 <div className="col-lg-12">

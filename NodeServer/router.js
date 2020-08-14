@@ -2,7 +2,8 @@ const express = require("express")
 const routes = express.Router({caseSensitive:true}),
 PatientModel = require("./DataModel/PatientModel"),
 DoctorModel = require("./DataModel/DoctorModel"),
-AdminModel = require("./DataModel/AdminModel");
+AdminModel = require("./DataModel/AdminModel"),
+RecordModel = require("./DataModel/RecordModel");
 
 // Create new patients
 routes.post("/api/createPatient", (req, res) => {
@@ -78,6 +79,23 @@ routes.get("/api/getPatients", (req, res) => {
     })
 })
 
+// Find records
+routes.get("/api/getRecords", (req, res) => {
+    
+    console.log(req.body);
+    
+    RecordModel.find((err, data, next) =>{
+        console.log("Data :", err);
+
+        err ? 
+        res.send({"erro": err}) 
+        :
+        res.send(
+            data
+        )
+    })
+})
+
 // Create new doctors
 routes.post("/api/createDoctor", (req, res) => {
     let doctorObject = new DoctorModel(req.body);
@@ -85,6 +103,19 @@ routes.post("/api/createDoctor", (req, res) => {
     doctorObject.save((err, data, next)=>{        
         if (err) {
             res.send("Error Saving A Doctor : "+ err);
+        }      
+        res.json(data);
+    });
+})
+
+// Create new records
+routes.post("/api/createRecord", (req, res) => {
+    let recordObject = new RecordModel(req.body);
+    console.log(recordObject);
+    recordObject.save((err, data, next)=>{        
+        if (err) {
+            console.log(err);
+            res.send("Error Saving A Record : "+ err);
         }      
         res.json(data);
     });
